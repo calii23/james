@@ -26,12 +26,25 @@ option is to install an acoustical sensor which detects when the bell rings. But
 it does not make any difference to the software, because in both cases there are just one pin
 which is read all the time when when it is in the HIGH state, the device fires a push
 notification.
+## Technical Solution
+### Required Hardware
+ - NodeMCU ESP8266
+ - iPhone (iOS 13)
+### Components
+#### App
+Currently there is only an app for iOS. This app is written in Swift. It does not make more
+than receiving the push notifications.
+#### Micro Controller
+In this setup a NodeMCU ESP8266 is used. Since the ESP8266 microchip contains a wifi chip
+and a full TCP/IP stack. So it easily be used to send push notification to the iPhone app
+via APN (Apple Push Notification). This is written in Lua.
 ## Progress
  - [x] Write down the problem
  - [x] Finding and write down a solution
  - [x] Checking the technical requirements
- - [ ] Documenting a technical solution
+ - [x] Documenting a technical solution
  - [ ] Implementing the solution in code
+ - [ ] Update the documentation of the technical solution
  - [ ] Build a prototype
  - [ ] Find somebody to test the prototype
  - [ ] Documenting problems and find solutions
