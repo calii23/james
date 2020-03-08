@@ -43,7 +43,8 @@ via APN (Apple Push Notification). This is written in Lua.
  - [x] Finding and write down a solution
  - [x] Checking the technical requirements
  - [x] Documenting a technical solution
- - [ ] Implementing the solution in code
+ - [x] Implementing the app
+ - [ ] Implementing the software for the NodeMCU
  - [ ] Update the documentation of the technical solution
  - [ ] Build a prototype
  - [ ] Find somebody to test the prototype
@@ -51,3 +52,7 @@ via APN (Apple Push Notification). This is written in Lua.
  - [ ] Optimize the implementation
  - [ ] Test it again (repeat the last steps if required)
  - [ ] Build a final prototype
+ - [ ] Designing the app properly
+ - [ ] Create an icon for the app
+ - [ ] Build a helper tool to for easier setup of the NodeMCU
+ - [ ] Support iPad and Mac Catalyst for the app
