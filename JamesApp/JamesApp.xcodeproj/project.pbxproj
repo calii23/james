@@ -13,10 +13,16 @@
 		0005ED2C2411960A00CE96E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0005ED2B2411960A00CE96E4 /* Assets.xcassets */; };
 		0005ED2F2411960B00CE96E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0005ED2E2411960B00CE96E4 /* Preview Assets.xcassets */; };
 		0005ED322411960B00CE96E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0005ED302411960B00CE96E4 /* LaunchScreen.storyboard */; };
+		00621B3D2413A87B008AE88B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00621B3C2413A87B008AE88B /* Utils.swift */; };
+		0086871524138CDA0084650B /* RequestPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0086871424138CDA0084650B /* RequestPermissionView.swift */; };
+		0086871724138CF40084650B /* PermissionDeniedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0086871624138CF40084650B /* PermissionDeniedView.swift */; };
+		0086871924138D300084650B /* CanRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0086871824138D300084650B /* CanRegisterView.swift */; };
+		0086871B2413904A0084650B /* NetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0086871A2413904A0084650B /* NetworkUtils.swift */; };
+		0086871D2413A1E70084650B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0086871C2413A1E70084650B /* LoadingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0005ED222411960900CE96E4 /* JamesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JamesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0005ED222411960900CE96E4 /* James.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = James.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0005ED252411960900CE96E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0005ED272411960900CE96E4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0005ED292411960900CE96E4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -24,6 +30,13 @@
 		0005ED2E2411960B00CE96E4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0005ED312411960B00CE96E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0005ED332411960B00CE96E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00621B3C2413A87B008AE88B /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		0086871224137E160084650B /* JamesApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JamesApp.entitlements; sourceTree = "<group>"; };
+		0086871424138CDA0084650B /* RequestPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPermissionView.swift; sourceTree = "<group>"; };
+		0086871624138CF40084650B /* PermissionDeniedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionDeniedView.swift; sourceTree = "<group>"; };
+		0086871824138D300084650B /* CanRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanRegisterView.swift; sourceTree = "<group>"; };
+		0086871A2413904A0084650B /* NetworkUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtils.swift; sourceTree = "<group>"; };
+		0086871C2413A1E70084650B /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +61,7 @@
 		0005ED232411960900CE96E4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0005ED222411960900CE96E4 /* JamesApp.app */,
+				0005ED222411960900CE96E4 /* James.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -56,9 +69,12 @@
 		0005ED242411960900CE96E4 /* JamesApp */ = {
 			isa = PBXGroup;
 			children = (
+				0086871324138CC50084650B /* ui */,
+				0086871224137E160084650B /* JamesApp.entitlements */,
 				0005ED252411960900CE96E4 /* AppDelegate.swift */,
 				0005ED272411960900CE96E4 /* SceneDelegate.swift */,
-				0005ED292411960900CE96E4 /* ContentView.swift */,
+				0086871A2413904A0084650B /* NetworkUtils.swift */,
+				00621B3C2413A87B008AE88B /* Utils.swift */,
 				0005ED2B2411960A00CE96E4 /* Assets.xcassets */,
 				0005ED302411960B00CE96E4 /* LaunchScreen.storyboard */,
 				0005ED332411960B00CE96E4 /* Info.plist */,
@@ -73,6 +89,18 @@
 				0005ED2E2411960B00CE96E4 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		0086871324138CC50084650B /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				0005ED292411960900CE96E4 /* ContentView.swift */,
+				0086871424138CDA0084650B /* RequestPermissionView.swift */,
+				0086871624138CF40084650B /* PermissionDeniedView.swift */,
+				0086871824138D300084650B /* CanRegisterView.swift */,
+				0086871C2413A1E70084650B /* LoadingView.swift */,
+			);
+			path = ui;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -92,7 +120,7 @@
 			);
 			name = JamesApp;
 			productName = JamesApp;
-			productReference = 0005ED222411960900CE96E4 /* JamesApp.app */;
+			productReference = 0005ED222411960900CE96E4 /* James.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -148,7 +176,13 @@
 			files = (
 				0005ED262411960900CE96E4 /* AppDelegate.swift in Sources */,
 				0005ED282411960900CE96E4 /* SceneDelegate.swift in Sources */,
+				00621B3D2413A87B008AE88B /* Utils.swift in Sources */,
+				0086871924138D300084650B /* CanRegisterView.swift in Sources */,
 				0005ED2A2411960900CE96E4 /* ContentView.swift in Sources */,
+				0086871724138CF40084650B /* PermissionDeniedView.swift in Sources */,
+				0086871D2413A1E70084650B /* LoadingView.swift in Sources */,
+				0086871B2413904A0084650B /* NetworkUtils.swift in Sources */,
+				0086871524138CDA0084650B /* RequestPermissionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,19 +318,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JamesApp/JamesApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"JamesApp/Preview Content\"";
 				DEVELOPMENT_TEAM = G4DWP7WPBS;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = JamesApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = de.schelbach.maximilian.JamesApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = James;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -304,19 +341,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JamesApp/JamesApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"JamesApp/Preview Content\"";
 				DEVELOPMENT_TEAM = G4DWP7WPBS;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = JamesApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = de.schelbach.maximilian.JamesApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = James;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
