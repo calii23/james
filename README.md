@@ -48,7 +48,7 @@ tokens and then sends the push notifications. This is written in JavaScript (Nod
  - [x] Checking the technical requirements
  - [x] Documenting a technical solution
  - [x] Implementing the app
- - [ ] Writing the AWS Lambda function
+ - [x] Writing the AWS Lambda function
  - [ ] Implementing the software for the NodeMCU
  - [ ] Update the documentation of the technical solution
  - [ ] Build a prototype
