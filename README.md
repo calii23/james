@@ -30,20 +30,25 @@ notification.
 ### Required Hardware
  - NodeMCU ESP8266
  - iPhone (iOS 13)
+ - AWS Lambda
 ### Components
 #### App
 Currently there is only an app for iOS. This app is written in Swift. It does not make more
 than receiving the push notifications.
 #### Micro Controller
 In this setup a NodeMCU ESP8266 is used. Since the ESP8266 microchip contains a wifi chip
-and a full TCP/IP stack. So it easily be used to send push notification to the iPhone app
-via APN (Apple Push Notification). This is written in Lua.
+and a full TCP/IP stack. So it easily can be used to communicate with the AWS Lambda. This
+is written in Lua.
+#### AWS Lambda
+The lambda is used to communicate with the APN servers. It just receives a list of device
+tokens and then sends the push notifications. This is written in JavaScript (Node.js engine).
 ## Progress
  - [x] Write down the problem
  - [x] Finding and write down a solution
  - [x] Checking the technical requirements
  - [x] Documenting a technical solution
  - [x] Implementing the app
+ - [ ] Writing the AWS Lambda function
  - [ ] Implementing the software for the NodeMCU
  - [ ] Update the documentation of the technical solution
  - [ ] Build a prototype
