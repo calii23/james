@@ -1,0 +1,26 @@
+{
+  "name": "send-doorbell-notification",
+  "version": "1.0.0",
+  "description": "AWS lambda for registering a device token",
+  "private": true,
+  "scripts": {
+    "clean": "rimraf dist lambda.zip",
+    "compile": "tsc",
+    "build": "npm run clean && npm run compile",
+    "pack": "npm run build && lambda-packer"
+  },
+  "author": {
+    "name": "Maximilian Schelbach",
+    "email": "maximilian@schelbach.de"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "aws-sdk": "^2.639.0",
+    "lambda-packer": "../lambda-packer",
+    "rimraf": "^3.0.2",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "send-push-notification": "../send-push-notification"
+  }
+}
