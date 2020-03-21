@@ -68,7 +68,7 @@ func getBroadcastAddress() -> in_addr_t? {
     return nil
 }
 
-func broadcastUdpMessage(message: String, port: UInt16) -> Bool {
+func broadcastUdpMessage(message: Data, port: UInt16) -> Bool {
     guard let address = getBroadcastAddress() else {
         print("could not find broadcast address")
         return false
@@ -95,7 +95,7 @@ func broadcastUdpMessage(message: String, port: UInt16) -> Bool {
     remoteAddr.sin_addr.s_addr = address
     let addrPointer = withUnsafePointer(to: &remoteAddr) { UnsafeRawPointer($0).bindMemory(to: sockaddr.self, capacity: 1) }
     
-    guard (message.withCString { sendto(fd, $0, strlen($0), 0, addrPointer, socklen_t(MemoryLayout<sockaddr_in>.size)) }) > 0 else {
+    guard (message.withUnsafeBytes { sendto(fd, $0, message.count, 0, addrPointer, socklen_t(MemoryLayout<sockaddr_in>.size)) }) > 0 else {
         print("failed to send udp packet: \(errno)")
         return false
     }

@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static let didChangedLocationAuthorization = NSNotification.Name("didChangedLocationAuthorization")
     static let didUserRequestedLocationAuthorization = NSNotification.Name("didUserRequestedLocationAuthorization")
     
-    private(set) var token: String?
+    private(set) var tokenMessage: Data?
     
     private let locationManager = CLLocationManager()
     
@@ -32,7 +32,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+        var tokenMessage = Data(capacity: 36)
+        tokenMessage.append(0x2A)
+        tokenMessage.append(0x0E)
+        tokenMessage.append(0x4D)
+        tokenMessage.append(0xE9)
+        tokenMessage.append(deviceToken)
+        self.tokenMessage = tokenMessage
+        print("token: ", tokenMessage.map { String(format: "%02x", $0) }.joined())
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {

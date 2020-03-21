@@ -10,41 +10,6 @@ import SwiftUI
 import Darwin
 import CoreLocation
 
-//struct LocationManagerObserver: UIViewRepresentable {
-//    private var manager: CLLocationManager
-//    private var callback: (CLAuthorizationStatus) -> Void
-//
-//    init(manager: CLLocationManager, callback: @escaping (CLAuthorizationStatus) -> Void) {
-//        self.manager = manager
-//        self.callback = callback
-//    }
-//
-//    func makeUIView(context: Context) -> UILabel {
-//        return UILabel()
-//    }
-//
-//    func updateUIView(_ uiView: UILabel, context: Context) {
-//    }
-//
-//    func makeCoordinator() -> LocationManagerObserver.Coordinator {
-//        return Coordinator(manager, callback)
-//    }
-//
-//    class Coordinator: NSObject, CLLocationManagerDelegate {
-//        let authorizationCallback: (CLAuthorizationStatus) -> Void
-//
-//        init(_ manager: CLLocationManager, _ authorizationCallback: @escaping (CLAuthorizationStatus) -> Void) {
-//            self.authorizationCallback = authorizationCallback
-//            super.init()
-//            manager.delegate = self
-//        }
-//
-//        func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-//            self.authorizationCallback(status)
-//        }
-//    }
-//}
-
 struct CanRegisterView: View {
     @State var showRegistrationFailed = false
     
@@ -55,7 +20,7 @@ struct CanRegisterView: View {
     
     var body: some View {
         VStack(spacing: 10) {
-            Text("The app has the permission to send push notifications. Now you can register this iPhone to your doorbell detector. This should jsut work as long as the you are in the same WiFi as the device. Just press the button below. If your device was registered, you will get a push notification to inform you about that it worked.")
+            Text("The app has the permission to send push notifications. Now you can register this iPhone to your doorbell detector. This should just work as long as the you are in the same WiFi as the device. Just press the button below. If your device was registered, you will get a push notification to inform you about that it worked.")
                 .multilineTextAlignment(.center)
             
             if locationAuthorization != .authorizedAlways {
@@ -80,8 +45,8 @@ struct CanRegisterView: View {
             
             
             Button("Register iPhone") {
-                if let token = (UIApplication.shared.delegate as? AppDelegate)?.token {
-                    if !broadcastUdpMessage(message: "REGISTER \(token)", port: 32425) {
+                if let tokenMessage = (UIApplication.shared.delegate as? AppDelegate)?.tokenMessage {
+                    if !broadcastUdpMessage(message: tokenMessage, port: 32425) {
                         print("failed to broadcast udp packet")
                         self.showRegistrationFailed = true
                     }
