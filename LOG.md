@@ -14,3 +14,25 @@ But all this is very complicated and it is easier to just move that logic into a
 There are two AWS lambdas. One is called when somebody ringed at the door, the other when a device was registered. The second once has a additional parameter which device whether or not the device token was already in the list. That lambdas can be called using a HTTP request containing the WiFi name in which the notification should be delivered (see at [Implementing the iOS App](#implementing-the-ios-app)) and a list of device tokens.
 ## Modules
 The AWS lambda code is separated into four modules. Two are just containing the entrypoints for the lambdas. One is sending the APN message has renews the token (which is stored in a secret manager) if the old one expired. And there is a simple module which collects all necessary files and packs them into a ZIP file which then can be uploaded to the lambda function.
+## Problems
+The NodeMCU seems not to be able to establish a TLS connection to the amazon API gateway properly because the certificate chains are too big. This means that it is not able to trigger the lambdas via HTTPS from the NodeMCU. The only other possibilities to trigger a lambda are via the AWS IoT or via SQS. AWS IoT is much overpowered for this simple use case and SQS is not natively supported by the NodeMCU and will properly have the same TLS problem as the API gateway.
+# Use a simple Node.js server
+So I finally decided that amazon AWS is not the best option for that. I'll rather use a Node.js server. That server has to be hosed either in the local network (e.g on a raspberry pi or something similar), or on a public server which is accessible from the network in which the device is in (no requirements of a VPN or proxy).
+## Usage of UDP
+It makes most sense to use UDP for the communication between the Node.js server and the NodeMCU, because it is faster and lighter than TCP. And since there is not need for a connection, because the NodeMCU just needs to send a simple event without any response.
+## Security
+To secure the connection each packet could be signed. The NodeMCU supports HMAC-SHA256 natively (besides a few others). This algorithm should be enough to sign a message. Each device could get a unique key and a message counter. In every message that could has to be increased so that a potential attacker could not just send a message multiple times.
+## Protocol specifications
+Each notification is just wrapped into the following packet as binary data and sent to port `3294` to the defined server IP address or hostname:
+ - 4 bytes: magic number: 0x1A0E4DE7 (big endian)
+ - 2 bytes: 1 bit type of message (`0` for doorbell notification, `1` for register device notification, `2` for already registered notification), 14 bits the identifier of the device
+ - 2 bytes: ssid length
+ - n bytes: ssid
+ - 4 bytes: message counter (unsigned 32bit integer, big endian)
+ - 1 byte: the number of devices (only if type is `0`)
+ - 32 bytes: the device token (as many as defined in number of devices)
+ - 32 bytes: the signature using a HMAC-SHA256 algorithm
+## Registration of device to the NodeMCU
+When a user clicks on the register device button, the iPhone sends a UDP packet to the network broadcaster on port `32425`. That message has the following structure:
+ - 4 bytes: magic number: 0x2A0E4DE9 (big endian)
+ - 32 bytes: the device token
