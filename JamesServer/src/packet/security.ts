@@ -51,7 +51,7 @@ export function verifyPacketSignature(deviceId: number, counter: number, message
   device.counter = counter + 1;
   const counterData = Buffer.alloc(4);
   counterData.writeUInt32BE(device.counter);
-  writeSync(writeFd, counterData, deviceId * 36);
+  writeSync(writeFd, counterData, 0, 4, deviceId * 36);
 
   return true;
 }
@@ -66,7 +66,7 @@ export function registerNewDevice(): RegisteredDevice {
 
   const data = Buffer.alloc(36);
   device.secret.copy(data, 4);
-  writeSync(writeFd, data, device.deviceId * 36);
+  writeSync(writeFd, data, 0, 36, device.deviceId * 36);
 
   return device;
 }
