@@ -61,6 +61,9 @@ written in TypeScript.
  - [ ] Create an icon for the app
  - [ ] Build a helper tool to for easier setup of the NodeMCU
  - [ ] Support iPad and Mac Catalyst for the app
+## Could supported in future
+ - Report invalid device tokens to the NodeMCU so that devices which have uninstalled the app can be removed from the device list
+ - Remove the push notification a after short while from the lock screen, so that not every notification keeps remaining in the notification center
 ## Setup
 To use this project please following the following steps:
 ### Build iOS app
@@ -122,3 +125,6 @@ on startup of the device.
  - Connect the sensor to port `GPIO16` (port `D0` on a NodeMCU board)
  - Connect the board to a power supply
  - Now the system is completely installed!
+## Images
+Easy setup with just a button as sensor: ![Simple setup](img/img0.jpg)
+The devliery of a message: ![Message devliery](img/img1.jpg)
