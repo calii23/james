@@ -4,44 +4,45 @@ The goal of this software is to help people with hearing disability. For these p
 sometimes it can be hard to hear when somebody rings at the door, especially since most
 of the doorbells are using high frequency tones.
 ## Solution
-Everyone has a smartphone. And most the time the smartphone is nearby the owner. So this
+Almost everyone has a smartphone. And most of the time the smartphone is nearby the owner. So this
 device can be used to inform the person about somebody who ringed at the door. Since
 there are many hearing aids which are connected to the smartphone to make a sound when a
-push notification arrived the phone, it is the optimal way to forward the doorbell signal
+push notification arrived at the phone, it is the optimal way to forward the doorbell signal
 to the person.
 
-The solution of the problem could be that when somebody uses the doorbell a push notification
-is sent onto the smartphone of the people with the hearing disability. For best practise
+The solution of the problem could be, that when somebody uses the doorbell a push notification
+is sent onto the smartphone of the person with the hearing disability. For best practise
 the person should use hearing aids which are connected to the smartphone.
 ## Technical Requirements
 The project requires an app on the users device which receives the push notifications. This
-app can be relatively simple, since the main job is just be installed on the phone. The
-app could show the user some basic infos how to use the system. And the app needs to register
+app can be relatively simple, since the main job is just to be installed on the phone. The
+app could show the user some basic infos of how to use the system. And the app needs to register
 itself to the sender of the push notifications.
 
-Then the main part of the software is the device which sends the push notifications. This
+The main part of the software is the device which sends the push notifications. This
 device must detect when somebody uses the doorbell button. This could either be implemented
-with a relay which are between the button at the front door and the ring itself. Another
-option is to install an acoustical sensor which detects when the bell rings. But in the end
-it does not make any difference to the software, because in both cases there are just one pin
-which is read all the time when when it is in the HIGH state, the device fires a push
+with a relay which is installed between the button at the front door and the bell itself. Another
+option is to install an acoustical sensor which detects when the bell rings. In the end
+it does not make any difference to the software, because in both cases there is just one pin
+which is read all the time and when it is in the HIGH state, the device fires a push
 notification.
 ## Technical Solution
 ### Required Hardware
  - NodeMCU ESP8266
  - iPhone (iOS 13)
- - AWS Lambda
+ - Node.js server
 ### Components
 #### App
-Currently there is only an app for iOS. This app is written in Swift. It does not make more
-than receiving the push notifications.
+Currently there is an app for iOS only. This app is written in Swift. It only receives push
+notifications and displays them to the user when the user is at home.
 #### Micro Controller
 In this setup a NodeMCU ESP8266 is used. Since the ESP8266 microchip contains a wifi chip
-and a full TCP/IP stack. So it easily can be used to communicate with the AWS Lambda. This
-is written in Lua.
-#### AWS Lambda
-The lambda is used to communicate with the APN servers. It just receives a list of device
-tokens and then sends the push notifications. This is written in JavaScript (Node.js engine).
+and a full TCP/IP stack, it can be used to communicate with the Node.js server. The software
+for the micro controller is written in Lua.
+#### Node.js server
+The Node.js server is used to communicate with the APN servers. It receives a (list of) device
+tokens and the type of the notification and sends the corresponding push notification. This is
+written in TypeScript.
 ## Progress
  - [x] Write down the problem
  - [x] Finding and write down a solution
@@ -63,12 +64,12 @@ tokens and then sends the push notifications. This is written in JavaScript (Nod
 ## Setup
 To use this project please following the following steps:
 ### Build iOS app
-Just open the iOS app in Xcode by just double pressing on the .xcodeproj file in the finder.
-Then choose your certificate in the `Signing & Capabilities` tab, connect your iPhone, select
+Open the Xcode project by double clicking on the .xcodeproj file in the finder.
+Choose your certificate in the `Signing & Capabilities` tab, connect your iPhone, select
 your device and run the app once. Xcode will install the app on your device. Your can close
 Xcode after that.
 
-**Note:** You must have a paid developer account at apple otherwise no push notifications can
+**Note:** You must have a paid developer account at Apple otherwise no push notifications can
 be delivered to your device.
 
 **Note:** Maybe you want to change the bundle identifier of the app. Just do that in the `General` tab.
@@ -76,20 +77,20 @@ be delivered to your device.
 You will need to create a key for the APN servers. Take a look at
 [this tutorial](https://www.raywenderlich.com/8164-push-notifications-tutorial-getting-started#toc-anchor-007) 
 which explains how to get one.
-### Setup Node.js
+### Setup Node.js server
 This is pretty simple. Just go into the `JamesServer` directory and run:
 ```bash
 npm install && npm run build && npm install -g
 ```
-Now you have the `james-server` command installed on the device.
+Now the `james-server` command is available on the device.
 #### Configure
 To configure you can use the interactive configuration tool with:
 ```bash
 james-server init
 ```
 #### Register device
-After you configured the server, you need to create a configuration for your NodeMCU. You
-use the interactive configuration tool with:
+After you configured the server, you need to create a configuration for your NodeMCU.
+Use the interactive configuration tool with:
 ```bash
 james-server register
 ```
@@ -109,7 +110,7 @@ on startup of the device.
  - Build the firmware
    - If you have docker installed: `docker run --rm -ti -v $(pwd):/opt/nodemcu-firmware marcelstoer/nodemcu-build build`
    - If you are on linux: `make` (but the docker method has a higher success rate)
- - Install the esptool with: `pip3 install esptool`
+ - Install the `esptool` with: `pip3 install esptool`
  - Upload the firmware: `esptool.py --port <serial port> write_flash 0x00000 bin/0x00000.bin 0x10000 bin/0x10000.bin`
 #### Upload the software
  - Upload the `init.lc` file from the `JamesHardware/dist` folder with a tool like `ESPlorer`
