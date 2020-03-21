@@ -50,8 +50,8 @@ written in TypeScript.
  - [x] Documenting a technical solution
  - [x] Implementing the app
  - [x] Writing Node.js server
- - [ ] Implementing the software for the NodeMCU
- - [ ] Build a prototype
+ - [x] Implementing the software for the NodeMCU
+ - [x] Build a prototype
  - [ ] Find somebody to test the prototype
  - [ ] Documenting problems and find solutions
  - [ ] Optimize the implementation
@@ -113,5 +113,12 @@ on startup of the device.
  - Install the `esptool` with: `pip3 install esptool`
  - Upload the firmware: `esptool.py --port <serial port> write_flash 0x00000 bin/0x00000.bin 0x10000 bin/0x10000.bin`
 #### Upload the software
- - Upload the `init.lc` file from the `JamesHardware/dist` folder with a tool like `ESPlorer`
+ - Install a tool like [ESPlorer](https://esp8266.ru/esplorer/) to upload file onto the micro controller
  - Upload the `config.bin` file generated while registering the device [look at Register device](#register-device)
+ - Upload the `setup.lua` file from the `JamesHardware` folder
+ - Run the `build.sh` in the `JamesHardware` folder
+ - Upload generated the `init.lua` file from the `JamesHardware` folder
+ - Run the command in the lua shell: `dofile("setup.lua")`
+ - Connect the sensor to port `GPIO16` (port `D0` on a NodeMCU board)
+ - Connect the board to a power supply
+ - Now the system is completely installed!
