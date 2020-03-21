@@ -48,9 +48,8 @@ tokens and then sends the push notifications. This is written in JavaScript (Nod
  - [x] Checking the technical requirements
  - [x] Documenting a technical solution
  - [x] Implementing the app
- - [x] Writing the AWS Lambda function
+ - [x] Writing Node.js server
  - [ ] Implementing the software for the NodeMCU
- - [ ] Update the documentation of the technical solution
  - [ ] Build a prototype
  - [ ] Find somebody to test the prototype
  - [ ] Documenting problems and find solutions
@@ -77,70 +76,41 @@ be delivered to your device.
 You will need to create a key for the APN servers. Take a look at
 [this tutorial](https://www.raywenderlich.com/8164-push-notifications-tutorial-getting-started#toc-anchor-007) 
 which explains how to get one.
-### Setup AWS Lambdas
-In the next step you will setup the AWS lambdas. For that go into the AWS console.
-#### Create secret
- - Goto the `Secret Manager`
- - Click on `Store a new secret`
- - Configure it like that: ![Secret Configuration](img/aws-secret0.png)
- - Give it a name (e.g `James/ApnCredentials`)
- - Disable `Disable automatic rotation`
- - Create the secret
-#### Configure the role for the lambda function
- - Goto `IAM`
- - Click on `Roles` in the sidebar on the left side
- - Click on `Create role`
- - Keep the `AWS service` type
- - Choose `Lambda` under `Common use cases`
- - Click on `Next`
- - Search for the policy `AWSLambdaBasicExecutionRole` and check the checkbox next to it
- - Click on `Create policy`
- - Goto the `JSON` tab and paste the following configuration:
- ```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "secretsmanager:GetSecretValue",
-                "secretsmanager:PutSecretValue"
-            ],
-            "Resource": "<<SECRET ARN>>"
-        }
-    ]
-}
+### Setup Node.js
+This is pretty simple. Just go into the `JamesServer` directory and run:
+```bash
+npm install && npm run build && npm install -g
 ```
- - Copy the ARN from the created secret (in the `Secret Manager`) and replace the placeholder with it.
- - The configuration should look like that: ![Policy configuration](img/aws-iam0.png)
- - Click on `Review policy`
- - Give it a name (e.g `GetAndUpdateApnCredentials`)
- - Create the policy
- - Click on `Next` twice
- - Give the role a name (e.g `JamesPushNotification`)
- - The roles should look like that: ![Role configuration](img/aws-iam1.png)
-#### Create lambda functions
- - Goto `Lambda`
- - Click `Create function`
- - Fill in the fields like that: ![Lambda configuration](img/aws-lambda0.png)
- - In the section `Designer` (first one) click the `Add trigger` button
- - Choose `API Gateway` like the following: ![Trigger configuration](img/aws-lambda1.png)
- - Click `Add`
- - Execute the `prepare.sh` in the `JamesLambda` folder from this repository (this might take a moment)
- - In the section `Function code` choose `Upload a .zip file` at `Code entry type`
- - Press on `Upload` and choose file `JamesLambda/send-doorbell-notification/lambda.zip`
- - In the section `Environment variables` press on `Manage environment variables`
- - Add the variables
-    - `APN_CREDENTIAL_SECRET_ID` -> the ARN of the secret (in `Secret Manager`)
-    - `APN_SERVER` -> the apple APN server either `https://api.sandbox.push.apple.com` when the app is in
-        development mode or `https://api.push.apple.com` when the app is in production mode
-    - `APN_TOPIC` -> the bundle identifier of the app (when you didn't changed it: `de.schelbach.maximilian.JamesApp`)
- - Click on `Save` in the right upper corner
- - Create another lambda function like the first one.
-    - This time name it something like `JamesRegisterDevice`
-    - When creating the trigger configure it like that: ![Trigger configuration](img/aws-lambda2.png)
-    - Choose the `lambda.zip` file from the `register-device` folder
-    - The environment variable are the same as in the first function
+Now you have the `james-server` command installed on the device.
+#### Configure
+To configure you can use the interactive configuration tool with:
+```bash
+james-server init
+```
+#### Register device
+After you configured the server, you need to create a configuration for your NodeMCU. You
+use the interactive configuration tool with:
+```bash
+james-server register
+```
+#### Start the server
+Now you can start the server with the command:
+```bashj
+james-server start
+```
+For best practice you should create a service on the device which starts automatically
+on startup of the device.
 ### Setup the NodeMCU
-Coming soon...
+#### Build the firmware
+ - Clone the firmware with: `git clone https://github.com/nodemcu/nodemcu-firmware.git`
+ - Edit the file `app/include/user_modules.h`
+   - Enable the modules: `bit`, `crypto`, `file`, `gpio`, `net`, `tmr`, `wifi`
+   - Disable all other modules
+ - Build the firmware
+   - If you have docker installed: `docker run --rm -ti -v $(pwd):/opt/nodemcu-firmware marcelstoer/nodemcu-build build`
+   - If you are on linux: `make` (but the docker method has a higher success rate)
+ - Install the esptool with: `pip3 install esptool`
+ - Upload the firmware: `esptool.py --port <serial port> write_flash 0x00000 bin/0x00000.bin 0x10000 bin/0x10000.bin`
+#### Upload the software
+ - Upload the `init.lc` file from the `JamesHardware/dist` folder with a tool like `ESPlorer`
+ - Upload the `config.bin` file generated while registering the device [look at Register device](#register-device)
