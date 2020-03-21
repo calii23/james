@@ -31,7 +31,7 @@ function generateToken(): string {
 export function getToken(): string {
   if (!token || tokenExpire < Date.now() + 2000) {
     token = generateToken();
-    tokenExpire = Date.now();
+    tokenExpire = Date.now() + 3600000;
   }
 
   return token;
