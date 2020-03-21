@@ -39,7 +39,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tokenMessage.append(0xE9)
         tokenMessage.append(deviceToken)
         self.tokenMessage = tokenMessage
-        print("token: ", tokenMessage.map { String(format: "%02x", $0) }.joined())
+        #if DEBUG
+        print("token:", tokenMessage.map { String(format: "%02x", $0) }.joined())
+        #endif
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
