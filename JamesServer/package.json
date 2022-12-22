@@ -22,7 +22,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "prompts": "^2.3.2",
     "yargs": "^15.3.1"
   }
